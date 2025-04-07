@@ -9,6 +9,6 @@ Les instructions d’installation et d’exécution : Étapes pour installer et 
 
 Les noms des membres du groupe : Liste des participants ayant contribué au projet.
 
-LEFEBVRE Calliste
-EVIN Alexis
+LEFEBVRE Calliste\
+EVIN Alexis\
 AWESSO	Manguiliwe Blaise
