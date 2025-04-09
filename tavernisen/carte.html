@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Carte des Bières</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <img src="img/parallax/logo.png" class="logo">
+            <div class="wrapper">
+            <!--
+                <div id="search-container">
+                    
+                    <input 
+                        type="search"
+                        id="search-input"
+                        placeholder="Entrer votre recherche"
+                    />
+                    <button id="search">Rechercher</button>
+                </div>
+            -->
+                <div id="buttons">
+                    <button class="button-value" onclick="filterProduct('all')">Tout<span></span></button>
+                    <button class="button-value" onclick="filterProduct('beer')">Bière<span></span></button>
+                    <button class="button-value" onclick="filterProduct('whisky')">Whisky<span></span></button>
+                    <button class="button-value" onclick="filterProduct('soft')">Soft<span></span></button>
+                    <button class="button-value" onclick="filterProduct('snack')">Snack<span></span></button>
+                </div>
+            </div>
+            <nav class="navigation">
+                <a href="home.html" >Accueil<span></span></a>
+                <a href="game.html">Mini-Jeu<span></span></a>
+                <a href="#"class="active">Carte<span></span></a>
+                <a href="#">A Propos<span></span></a>
+            </nav>
+        </header>
+
+        <section class="fondBeer">
+            <div id="products"></div>
+        </section>
+
+        <script src="carte.js"></script>
+    </body>
+</html>
