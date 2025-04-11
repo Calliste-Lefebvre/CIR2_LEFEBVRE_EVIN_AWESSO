@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Support - TAV'ISEN</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques à la page Support */
+        .support-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+        }
+        
+        .team-section, .contact-section, .newsletter-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #d4a017;
+            border-bottom: 2px solid #d4a017;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .team-member {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+        }
+        
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #d4a017;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .contact-method {
+            flex: 1;
+            min-width: 250px;
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            font-size: 24px;
+            color: #d4a017;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        input, textarea, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #d4a017;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #b8860b;
+        }
+        
+        #confirmation-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="img/parallax/logo.png" class="logo">
+        <nav class="navigation">
+            <a href="home.html">Accueil<span></span></a>
+            <a href="game.html">Mini-Jeu<span></span></a>
+            <a href="carte.html">Carte<span></span></a>
+            <a href="#" class="active">Support<span></span></a>
+        </nav>
+    </header>
+
+    <section class="fondBeer">
+        <div class="support-container">
+            <div class="team-section">
+                <h2>Notre Équipe</h2>
+                <p>L'équipe TAV'ISEN est composée d'étudiants passionnés qui partagent l'amour des bonnes bières et des moments conviviaux.</p>
+                
+               
+            </div>
+            
+            <div class="contact-section">
+                <h2>Nous Contacter</h2>
+                <p>Vous avez des questions, des suggestions ou besoin d'aide ? N'hésitez pas à nous contacter !</p>
+                
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Adresse</h3>
+                            <p>20 Rue de la Bière, 59000 Lille</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h3>Téléphone</h3>
+                            <p>03 20 12 34 56</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>contact@tavisen.fr</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <h3>Horaires</h3>
+                            <p>Lundi-Vendredi: 16h-02h<br>
+                            Samedi-Dimanche: 14h-04h</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="newsletter-section">
+                <h2>Newsletter</h2>
+                <p>Abonnez-vous à notre newsletter pour recevoir nos dernières actualités, promotions et événements spéciaux !</p>
+                
+                <form id="newsletterForm" class="newsletter-form">
+                    <div class="form-group">
+                        <label for="name">Nom :</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interests">Centres d'intérêt :</label>
+                        <select id="interests" name="interests">
+                            <option value="events">Événements</option>
+                            <option value="promotions">Promotions</option>
+                            <option value="new_beers">Nouvelles bières</option>
+                            <option value="all">Tout</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit">S'abonner</button>
+                    <div id="confirmation-message">Merci pour votre inscription !</div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="support.js"></script>
+</body>
+</html>
