@@ -16,6 +16,7 @@ window.addEventListener('resize', resizeCanvas);
 let gameStarted = false;
 let gamePaused = false;
 let renderSimulation = 10000;
+let showRedCross = false;
 
 // -----------------------------------------------------------------
 // Configuration du vaisseau
@@ -99,17 +100,27 @@ const camera = {
 const background = new Image();
 background.src = './img/jeu/background.png';
 
+const starImages = [
+    new Image(),
+    new Image()
+];
+starImages[0].src = './img/jeu/stars1.png';
+starImages[1].src = './img/jeu/stars2.png';
+
+
 const stars = [];
-const starSize = 10;
-const starNumber = 100;
+const starSize = 48;
+const starNumber = 300;
 function createStar() {
     const star = {
-        x: Math.random() * (renderSimulation*2) - renderSimulation,
-        y: Math.random() * (renderSimulation*2) - renderSimulation,
-        size: starSize
+        x: Math.random() * (renderSimulation * 2) - renderSimulation,
+        y: Math.random() * (renderSimulation * 2) - renderSimulation,
+        size: starSize,
+        image: starImages[Math.random() < 0.5 ? 0 : 1] // 50% chance pour chaque image
     };
     stars.push(star);
 }
+
 for (let i = 0; i < starNumber; i++) {
     createStar();
 }
@@ -199,6 +210,10 @@ function keyDown(e) {
         togglePause();
         return;
     }
+    if (e.code === 'KeyR') {
+        showRedCross = !showRedCross; // Active/désactive l'affichage de la croix rouge
+        return;
+    }
     // Gestion de la touche espace pour le boost
     if (e.code === 'Space') {
         if (spaceBoostReady) {
@@ -246,6 +261,10 @@ function boostIfNearPlanet() {
                 const ny = dy; //distance;
                 // Application du boost
                 spaceship.boost += BOOST_MAGNITUDE;// * nx;
+                spaceship.boost += BOOST_MAGNITUDE;
+                boostSound.currentTime = 0;
+                boostSound.play();
+
                 // On arrête dès le premier boost appliqué
                 break;
             }
@@ -454,7 +473,9 @@ function drawSpaceship() {
     ctx.translate(canvas.width / 2 + spaceship.offsetX,canvas.height / 2 + spaceship.offsetY); // Position du vaisseau
     ctx.rotate(spaceship.currentAngle);
     // Dessiner le sprite centré sur son axe
-    ctx.drawImage(spaceshipImage, -spaceshipImage.width / 2, -spaceshipImage.height / 2);
+    const targetSize = 128; // ou 128 si tu préfères
+    ctx.drawImage(spaceshipImage, -targetSize / 2, -targetSize / 2, targetSize, targetSize);
+
     ctx.restore();
 }
 
@@ -483,24 +504,23 @@ function updateShipRotate(){
 }
 
 
-// Dessin des étoiles
+// Dessin des étoiles (image saucisson et cacahuète)
 function drawStars() {
-    ctx.fillStyle = 'yellow';
     stars.forEach(star => {
         const screenX = star.x - camera.smoothX + canvas.width / 2;
         const screenY = star.y - camera.smoothY + canvas.height / 2;
+
         if (
             screenX >= -star.size &&
             screenX <= canvas.width + star.size &&
             screenY >= -star.size &&
             screenY <= canvas.height + star.size
         ) {
-            ctx.beginPath();
-            ctx.arc(screenX, screenY, star.size, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.drawImage(star.image, screenX - star.size / 2, screenY - star.size / 2, star.size, star.size);
         }
     });
 }
+
 
 // Dessin des planètes
 function drawPlanets() {
@@ -520,10 +540,23 @@ function increaseScoreOnStarCollision() {
         if (distance < minDistance) {
             stars.splice(index, 1); // Supprime l'étoile touchée
             score++; // Augmente le score
+            starSound.currentTime = 0; // Rewind le son pour éviter qu'il ne soit ignoré
+            starSound.play();
             createStar(); // Remplace l'étoile par une nouvelle
         }
     });
 }
+
+//--------------------------------------------------------
+//Importation des sons
+const starSound = new Audio('./audio/sonic.mp3'); //cacahuète saucisson
+starSound.volume = 0.2;
+const boostSound = new Audio('./audio/boost.mp3'); //boost
+boostSound.volume = 0.2;
+const backgroundMusic = new Audio('./audio/pirate.mp3'); //musique de fond
+backgroundMusic.loop = true;     // 🔁 Musique en boucle
+backgroundMusic.volume = 0.4;    // 🔊 Volume entre 0.0 et 1.0
+
 
 
 // Affichage du score (ou d'autres infos)
@@ -540,12 +573,35 @@ function drawCameraCoordinates() {
     ctx.fillStyle = 'white';
     ctx.font = '16px Arial';
     ctx.textAlign = 'right';
-    ctx.fillText(`Camera: (${Math.round(camera.smoothX)}, ${Math.round(camera.smoothY)})`, canvas.width - 10, 30);
-    ctx.fillText(`Ship: (${Math.round(spaceship.x)}, ${Math.round(spaceship.y)})`, canvas.width - 10, 60);
-    ctx.fillText(`Ship_boost: ${Math.round(spaceship.boost)}, Ship_vel: ${Math.round(spaceship.vx)}`, canvas.width - 10, 90);
+
+    const margin = 10;
+    const lineHeight = 20;
+
+    // --- En haut à droite ---
+    const topLines = [
+        `Camera: (${Math.round(camera.smoothX)}, ${Math.round(camera.smoothY)})`,
+        `Ship: (${Math.round(spaceship.x)}, ${Math.round(spaceship.y)})`
+    ];
+    for (let i = 0; i < topLines.length; i++) {
+        ctx.fillText(topLines[i], canvas.width - margin, margin + (i + 1) * lineHeight);
+    }
+
+    // --- En bas à droite ---
+    const bottomLines = [
+        `Ship_boost: ${Math.round(spaceship.boost)}`,
+        `Ship_vel: ${Math.round(spaceship.vx)}`
+    ];
+    for (let i = 0; i < bottomLines.length; i++) {
+        ctx.fillText(
+            bottomLines[i],
+            canvas.width - margin,
+            canvas.height - margin - (bottomLines.length - 1 - i) * lineHeight
+        );
+    }
 }
 
-// (Optionnel) Dessiner une croix rouge au centre
+
+// Dessiner une croix rouge au centre
 function drawRedCross() {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -563,7 +619,7 @@ function drawRedCross() {
 }
 
 // -----------------------------------------------------------------
-// Menus (Play / Pause)
+// Menus (Play / )
 function showMainMenu() {
     ctx.fillStyle = 'orange';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -582,7 +638,7 @@ function showMainMenu() {
     canvas.addEventListener('click', startGame, { once: true });
 }
 
-
+// PAUSE MENU ===============
 function showPauseMenu() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -591,6 +647,7 @@ function showPauseMenu() {
     ctx.textAlign = 'center';
     ctx.fillText('PAUSE', canvas.width / 2, canvas.height / 3);
     ctx.fillText('Appuyez sur T pour reprendre', canvas.width / 2, canvas.height / 2);
+    backgroundMusic.volume = 0.2; 
 }
 
 // -----------------------------------------------------------------
@@ -610,6 +667,9 @@ function update() {
         drawStars();
         drawPlanets();
         drawSpaceship();
+        if (showRedCross) {
+            drawRedCross();
+        }
         drawScore();
         drawCameraCoordinates();
         showPauseMenu();
@@ -624,6 +684,9 @@ function update() {
         drawStars();
         drawPlanets();
         drawSpaceship();
+        if (showRedCross) {
+            drawRedCross();
+        }
         drawScore();
         drawCameraCoordinates();
     }
@@ -634,6 +697,12 @@ function update() {
 // Démarrer le jeu
 function startGame() {
     gameStarted = true;
+    try {
+        backgroundMusic.play();
+    } catch (e) {
+        console.warn("La musique n'a pas pu être lancée automatiquement :", e);
+    }
+    
     spaceship.x = 0;
     spaceship.y = 0;
     spaceship.vx = 0;
@@ -653,6 +722,16 @@ canvas.addEventListener('mousemove', (event) => {
     mouseY = event.clientY - rect.top - centerY;
 });
 
+//on s'assure que les images des étoiles soient bien chargés avant de lancer
+let starsLoaded = 0;
+starImages.forEach(img => {
+    img.onload = () => {
+        starsLoaded++;
+        if (starsLoaded === starImages.length && background.complete) {
+            update();
+        }
+    };
+});
 // Lancement de la boucle principale une fois l'arrière-plan chargé
 background.onload = () => {
     update();
@@ -662,4 +741,5 @@ background.onload = () => {
 // Fonction pour toggle le mode pause
 function togglePause() {
     gamePaused = !gamePaused;
+    backgroundMusic.volume = 0.4;  //on remet le son au volume initial
 }
