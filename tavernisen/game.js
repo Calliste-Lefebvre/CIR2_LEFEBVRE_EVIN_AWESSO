@@ -1,5 +1,9 @@
 // INITIALISATION --------------------------------------------------
 
+//NOTE : VAISSEAU = BOUTEILLE DE BIERE
+//       PLANETE = CERCLE REPRESENTANT UN BAR (PDD)
+//       STARS/ETOILES = CACAHUETES, SAUCISSONS
+
 // Création et ajustement du canevas
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
@@ -22,14 +26,14 @@ let showRedCross = false;
 // Configuration du vaisseau
 // (x, y) : position dans le monde (en pixels)
 // (vx, vy) : vitesse en pixels/s
-// "thrust" : accélération apportée par le joueur (pixels/s²)
+// "thrust" : accélération apportée par le joueur (pixels/s)
 // "offset" : utilisé pour l'effet visuel (pour l'instant, uniquement en mode non collision)
 const spaceship = {
     x: 0,
     y: 0,
     width: 64,
     height: 64,
-    thrust: 700,    // accélération apportée par le joueur (pixels/s²)
+    thrust: 700,    // accélération apportée par le joueur (pixels/s)
     vx: 0,
     vy: 0,
     offsetX: 0,
@@ -94,6 +98,7 @@ const camera = {
     smoothX: 0,
     smoothY: 0
 };
+//note : faire une fonction pour afficher une croix au centre de l'écran
 
 // -----------------------------------------------------------------
 // Arrière-plan et étoiles
@@ -175,7 +180,7 @@ class Planet {
     }
 }
 
-// Nous utilisons ici 9.81 pour chacune des planètes (attention aux unités, ici le gravity est exprimé en "pixels/s²" via un facteur multiplicatif)
+// Nous utilisons ici 9.81 pour chacune des planètes 
 const planets = [
     new Planet(1500, 1300, './img/jeu/planet1.png', 500, 9810, 0, 0.1),
     new Planet(-600, -200, './img/jeu/planet2.png', 150, 1081, Math.PI / 4, 0.2),
@@ -197,7 +202,7 @@ const keys = {
     Space: false
 };
 
-// Flag pour empêcher de répéter le boost tant que la barre espace est maintenue
+//  pour empêcher de répéter le boost tant que la barre espace est maintenue
 let spaceBoostReady = true;
 
 // VARIABLE POUR L'ORIENTATION EN COLLISION
@@ -275,10 +280,10 @@ function boostIfNearPlanet() {
 
 
 // -----------------------------------------------------------------
-// Physique réaliste avec intégration temporelle
-// Ordre d'application :
+// DEPLACEMENT REALISTE DU VAISSEAU (INERTIE TOUT CA TOUT CA)
+// 
 // 1. Poussée du joueur (uniquement translation, sans orientation)
-// 2. Gravité de chaque planète
+// 2. Gravité de chaque planète (LE CERCLE DES BARS (PDD))
 // 3. Détection de collision (poussée d'Archimède) :
 //    - Si collision, le vaisseau est replacé sur le bord de la planète,
 //      la vitesse est annulée et la variable globale collidingPlanet est définie.
@@ -331,7 +336,7 @@ function updatePhysics(dt) {
             }
         } else {
             // Accélération gravitationnelle :
-            // a = 9.81 * (planetRadius / distance)²
+            // a = 9.81 * (planetRadius / distance)^2
             const a = planet.gravity * (planetRadius / distance) ** 2;
             if(a > 100){
                 force = a;
@@ -414,7 +419,7 @@ function updatePhysics(dt) {
         // Ajout de l'incrément de rotation de la planète
         angleRel += collidingPlanet.rot_speed * dt;
         const minDistance = collidingPlanet.size / 2 + shipRadius;
-        // Mise à jour de la position pour suivre la rotation
+        // maj de la position pour suivre la rotation
         spaceship.x = collidingPlanet.x + Math.cos(angleRel) * minDistance;
         spaceship.y = collidingPlanet.y + Math.sin(angleRel) * minDistance;
     }
@@ -711,16 +716,7 @@ function startGame() {
     camera.smoothY = spaceship.y;
 }
 
-// -----------------------------------------------------------------
-// Suivi de la souris (pour affichage éventuel)
-let mouseX = 0, mouseY = 0;
-canvas.addEventListener('mousemove', (event) => {
-    const rect = canvas.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    mouseX = event.clientX - rect.left - centerX;
-    mouseY = event.clientY - rect.top - centerY;
-});
+
 
 //on s'assure que les images des étoiles soient bien chargés avant de lancer
 let starsLoaded = 0;
