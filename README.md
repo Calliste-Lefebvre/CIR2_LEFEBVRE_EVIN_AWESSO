@@ -77,7 +77,8 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
             Collision = score + son + étoile remplacée
 
     Page A Propos :
-            AWESSO MANGUILLIWE BLAISE
+            La page Support offre une interface complète pour découvrir l'équipe derrière TAV'ISEN et contacter l'établissement.  Les informations de contact (adresse, téléphone, email et horaires) sont organisées en cartes cliquables pour un accès immédiat.
+  Un formulaire de newsletter fonctionnel permet aux visiteurs de s'inscrire aux actualités. Développé en JavaScript, il inclut la validation des champs et un message de confirmation. La page est entièrement responsive, adaptée à tous les appareils grâce à une mise en page Flexbox/Grid. Cette page démontre l'équilibre entre design moderne et fonctionnalités pratiques, avec un code structuré (HTML/CSS/JS séparés) pour une maintenance simplifiée. Les effets visuels subtils et l'ergonomie étudiée en font un bon exemple d'interface utilisateur pour LE projet.
 
 
 
