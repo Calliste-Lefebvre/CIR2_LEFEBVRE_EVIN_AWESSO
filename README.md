@@ -40,12 +40,12 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
               La bière est automatiquement attiré par ce cercle et se pose sur ce dernier.
 
 
-        ==========  Fonctionnalités : =============
-              -Canvas HTML5 2D
-Création dynamique d’un <canvas> via document.createElement('canvas')
-Rendu graphique avec ctx (contexte 2D)
-Dessins :
-Images (drawImage)
+        ==========  Fonctionnalités : =============\
+              -Canvas HTML5 2D\
+Création dynamique d’un <canvas> via document.createElement('canvas') \
+Rendu graphique avec ctx (contexte 2D)\
+Dessins :\
+Images (drawImage)\
 Textes (fillText)
 Formes (croix rouge avec moveTo, lineTo, stroke)
 Gestion de la taille dynamique (resize automatique)
