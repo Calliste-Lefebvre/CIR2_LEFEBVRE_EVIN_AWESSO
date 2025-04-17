@@ -39,8 +39,8 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
               Lorsque l'on reste immobile prêt d'un cercle (représentant l'enseigne du bar très fréquenté par l'ISEN),
               La bière est automatiquement attiré par ce cercle et se pose sur ce dernier.
 
-  
-          ==========  Fonctionnalités : =============
+
+==========  Fonctionnalités : =============
               -Canvas HTML5 2D
 Création dynamique d’un <canvas> via document.createElement('canvas')
 Rendu graphique avec ctx (contexte 2D)
@@ -49,7 +49,6 @@ Images (drawImage)
 Textes (fillText)
 Formes (croix rouge avec moveTo, lineTo, stroke)
 Gestion de la taille dynamique (resize automatique)
-
 -Physique du jeu & mouvement réaliste
 Inertie et vitesse : vx, vy
 Gravité paramétrable par planète (force en fonction de la distance et de gravity)
@@ -57,30 +56,26 @@ Collision planète : repositionnement sur le bord et arrêt du mouvement
 Boost radial en sortie de collision
 Frottement dynamique (réduction des vitesses si pas d’input)
 Limitation de la vitesse maximale
-
 -Caméra intelligente
 Caméra fluide suivant le vaisseau : camera.smoothX, smoothY
 Interpolation avec facteur de lissage (smoothing)
 Toutes les entités (étoiles, planètes, fond) sont dessinées en relatif à la caméra
-
 -Animation et rotation du vaisseau
 Changement de sprite avec frameIndex toutes les 100 ms
 Interpolation d’angle (slerp/lerp) pour orienter le vaisseau :
 En direction de la vitesse
 Ou vers la planète en cas de contact
 Gestion de l’offset visuel (effet de vitesse fluide)
-
 -Objets planètes dynamiques
 Classe Planet :
 Position, texture, taille, gravité, vitesse de rotation
 Méthodes .update() et .draw()
 Rotation automatique avec rot_speed
-
 -Système d’étoiles (objets collectables)
 Étoiles = saucisson/cacahuètes 
 Créées aléatoirement dans l’espace (300)
 Collision = score + son + étoile remplacée
-            =========================================================
+======
 
     Page A Propos :
             AWESSO MANGUILLIWE BLAISE
