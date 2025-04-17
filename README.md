@@ -40,7 +40,7 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
               La bière est automatiquement attiré par ce cercle et se pose sur ce dernier.
 
 
-==========  Fonctionnalités : =============
+        ==========  Fonctionnalités : =============
               -Canvas HTML5 2D
 Création dynamique d’un <canvas> via document.createElement('canvas')
 Rendu graphique avec ctx (contexte 2D)
@@ -75,7 +75,7 @@ Rotation automatique avec rot_speed
 Étoiles = saucisson/cacahuètes 
 Créées aléatoirement dans l’espace (300)
 Collision = score + son + étoile remplacée
-======
+        ============================
 
     Page A Propos :
             AWESSO MANGUILLIWE BLAISE
