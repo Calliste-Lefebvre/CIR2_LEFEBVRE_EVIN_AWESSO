@@ -1,5 +1,5 @@
 # CIR2_LEFEBVRE_EVIN_AWESSO
-Tavern'ISEN
+TAV'ISEN
 
 
 
@@ -94,6 +94,6 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
 
 - Les noms des membres du groupe : Liste des participants ayant contribué au projet.
 
-    AWESSO MANGUILLIWE BLAISE
-    EVIN ALEXIS
-    LEFEBVRE CALLISTE
+    AWESSO MANGUILLIWE Blaise
+    EVIN Alexis
+    LEFEBVRE Calliste
