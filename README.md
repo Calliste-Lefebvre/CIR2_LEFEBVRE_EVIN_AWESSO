@@ -37,7 +37,9 @@ Il y a aussi un "Mini-jeu" codé entièrement en JavaScript, où nous déplaçon
             Jeu :
               On contrôle une bouteille de bière dans un espace, les déplacements de la bière possède une inertie.
               Lorsque l'on reste immobile prêt d'un cercle (représentant l'enseigne du bar très fréquenté par l'ISEN),
-              La bière est automatiquement attiré par ce cercle et se pose sur ce dernier.
+              La bière est automatiquement attiré par ce cercle et se pose sur ce dernier, on peut alors se propulser
+              pour sortir du cercle.
+              
 
 
             Fonctionnalités :
